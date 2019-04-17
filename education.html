@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Analysis of the Educational, Healthcare, and Military Spending of the G20 Countries (home)</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css" />
+
+	<script type = "text/javascript"
+			src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type = "text/javascript">
+			//load the google charts
+			google.charts.load('current',{'packages':['corechart']});
+			google.charts.load('current',{'packages':['bar']});			
+			//load the Callback function that runs when page loads
+			google.charts.setOnLoadCallback(drawAllSheets);
+			
+			function drawAllSheets(){
+				drawSheetName('Education',
+							'Select A,B,C,D,E,F,G,H',
+							educationResponseHandler);
+							
+
+				drawSheetName('Education',
+							'Select AF,AG,AH',
+							eduGDPResponseHandler);	
+
+				drawSheetName('Education',
+							'Select V,W,X,Y,Z,AA,AB,AC',
+							edufixedResponseHandler);	
+
+				drawSheetName('Education',
+							'Select V,AA',
+							edupieResponseHandler);							
+
+			}  //drawAllSheets
+//************************************************************************************************
+			function drawSheetName(sheetName, query, responseHandler){
+				var queryString = encodeURIComponent(query);
+				var query = new google.visualization.Query(
+				// 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQL3f-UcZYt940vlHk9l2hQFXI7RmNp3BQXjuP6ontWOd0q3mkQAU8T7MKCqgSGx6Z2BOmgd6oaBwZk/gviz/tq?sheet=' +sheetName + '&headers = 1&tq=' +queryString);
+				'https://docs.google.com/spreadsheets/d/1FPbVCF0wq1LSBkc8wfNMxBmwm-5X352VsMOY7KLEkGw/gviz/tq?sheet=' +sheetName + '&headers = 1&tq=' +queryString);
+				query.send(responseHandler);				
+				
+			}  //drawSheetName
+			
+			function educationResponseHandler(response){
+				var data = response.getDataTable();
+				//data.sort({column:1, desc:true});
+				var options = {
+							chart: {
+								title: 'Education Expenditure per person per GDP per Capita',
+								subtitle: '2009-2015 (%)',
+							  },
+							width: 600,
+							vAxis: {title: '%', showTextEvery:1},
+							hAxis: {title: 'Country',showTextEvery:1, direction:-1, slantedText:true, slantedTextAngle:90,textStyle: {fontSize: 8} },
+							textStyle: {fontSize: 6},
+							backgroundColor: '#f8f8f8'
+				};
+				var chart = new google.charts.Bar(
+							document.getElementById('education_div')
+							)
+				//chart.draw(data,options);
+				chart.draw(data,google.charts.Bar.convertOptions(options));
+			
+			}  //educationResponseHandler
+			
+			function eduGDPResponseHandler(response) {
+			var data = response.getDataTable();
+			data.sort({column:1, desc:true});
+			var options = {
+			title : 'Compare the per person education spending to the per person GDP (2013)',
+			subTitle : 'blue = GDP per Person | red = Educational Spending per Person',
+			width: 750,
+			//height: 400,
+			legend: { position: 'top', textStyle: {fontSize: 8}, maxLines: 3 },
+			hAxis: {title: '($)'},
+			vAxis: {title: 'Country',showTextEvery:1, textStyle: {fontSize: 8}},
+			bar: { groupWidth: '75%' },
+			isStacked: true,
+			backgroundColor: '#f8f8f8'
+			};
+			
+			var chart = new google.visualization.BarChart(
+						document.getElementById('edugdp_div'));
+			chart.draw(data,options);
+			} //eduGDPResponseHandler				
+
+			function edufixedResponseHandler(response) {
+			var data = response.getDataTable();
+			data.sort({column:1, desc:true});
+			var options = {
+			title : 'Government expenditure on education, fixed value (2009-2015)',
+			width: 750,
+			legend: { position: 'top', textStyle: {fontSize: 8}, maxLines: 3 },
+			hAxis: {title: '($)'},
+			vAxis: {title: 'Country',showTextEvery:1, textStyle: {fontSize: 8}},
+			backgroundColor: '#f8f8f8'
+			};
+			
+			var chart = new google.visualization.ColumnChart(
+						document.getElementById('edufix_div'));
+			chart.draw(data,options);
+			} //edufixedResponseHandler			
+			
+			function edupieResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							title : 'Government expenditure on education, fixed value (2013)',
+							width: 600,
+							backgroundColor: '#f8f8f8'
+				};
+		
+				var chart = new google.visualization.PieChart(
+							document.getElementById('edupie_div')
+							)
+				chart.draw(data,options);
+				
+			}  //edupieResponseHandler	
+			
+	</script>
+	</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<h1>Expenditure Analysis</h1>
+					<h2>Education, Healthcare, and Military
+</h2>
+				</div><!-- logo_text -->
+			</div><!-- logo -->
+			<div id="menubar">
+				<ul id="menu">
+					<li ><a href="index.html">Home</a></li>
+					<li class="selected"><a href="education.html">Education</a></li>
+					<!-- image taken from http://www.expresspros.co.za/how-important-is-your-education/-->
+					<li><a href="healthcare.html">Healthcare</a></li>
+					<!-- image obtained from https://www.vccircle.com/nb-ventures-backs-home-healthcare-aggregator-zoctr/-->
+					<li><a href="military.html">Military Spending</a></li>
+					<!-- image obtained from https://www.politico.com/story/2015/03/gop-debt-reduction-military-spending-116254-->
+					<li><a href="forecasting_analysis_conclusions.html">Forecasting, Analyses, Conclusions</a></li>
+				
+				
+				
+				</ul>
+			</div><!-- menubar -->
+		</div><!-- header -->
+		<div id="site_content">
+			<div class="sidebar">
+			<!-- insert sidebar items here -->
+			<h3>EDUCATION</h3>
+			<ul>
+					<li><a href="#edgdp">Compare the per person educational spending to the per person GDP</a></li>
+					<li><a href="#fasted">Fastest growing countries in educational spending in fixed value and in percentage</a></li>
+				</ul>
+			</div><!-- sidebar -->
+			<div id="content">
+				<!-- insert page content here -->
+				<h1>Educational Spending of the G20 Countries</h1>
+				<p>Note: There are quite a few bits of missing data for Educational Spending for the various countries.  If data was missing, a 0 was inserted to insure the country would show up on the charts.</p>
+				<h2>Compare the per person educational spending to the per person GDP</h2>
+					<div id="edugdp_div"
+						style="width:900px; height:500px"></div>
+				<h4>Observations</h4>
+					<ul><li> Looking at the blue bars, or GDP per Capita, we see that Australia has the largest GDP per Capita, with the United States and Canada following close behind.</li>
+						<li>When we look at the red bars, or Educational Spending per Capita, we see again Australia and the USA with the highest values, but the UK has the third highest, although their GDP per Capita comes in 5th.</li>
+					</ul>
+				<h2>Government expenditure on education, fixed value (2009-2015)</h2>
+					<div id="edufix_div"
+						style="width:900px; height:500px"></div>
+				
+				<h4>Observations</h4>
+					<ul><li>The USA, for the most part, has 6-12 times the expenditure on education than the other countries.</li>
+					<li>The EU is approximately 2/3 that of the USA educational expenditure.</li>
+					</ul>
+					<div id="edupie_div"
+						style="width:900px; height:500px"></div>
+				<h4>Observations</h4>
+					<ul><li>Looking at just 2013, The United States spends 35% of the sum of the G20 expenditure on education.</li>
+					<li>The EU spends 23.6% of the sum of the G20 expenditure on education.  </li>
+					<li>5 countries don't show because their value is 0 because we have no data.
+					</ul>
+				<h2>Government expenditure on education, total (% of government expenditure)</h2>
+					<div id="education_div"
+						style="width:900px; height:500px"></div>
+				<h4>Observations</h4>
+					<ul><li>The top 5 countries in regards to population are: 1. China, 2. India, 3. EU, 4. USA, 5. Indonesia.</li>
+					</ul>
+				<h4></h4>	
+			<h4>Sources:</h4>
+			<a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS?view=chart"><h4>Government expenditure on education, total (% of GDP)</h4>https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS?view=chart</a>
+				
+			</div><!-- content -->
+		</div><!-- site_Content -->
+		<div id="content_footer">
+			<div id="footer">
+				&copy; <script>var d=new Date(); document.write(d.getFullYear());</script>
+				| Jennifer Crosby | DATS 6401-010 | Visualization of Complex Data |
+			</div><!-- footer -->
+		</div><!-- content_footer -->
+	</div><!-- main -->
+</body>
+</html>

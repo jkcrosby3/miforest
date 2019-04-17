@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Michigan Land Use (home)</title>
+	
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+	<!-- jQuery UI CSS -->
+	<link rel="stylesheet" href="style/jquery-ui.min.css">
+	<link rel="stylesheet" href="style/jquery-ui.structure.min.css">
+	<link rel="stylesheet" href="style/jquery-ui.theme.min.css">
+    <!-- D3 Tooltip CSS -->
+	<link rel="stylesheet" href="style/d3-tip.css">
+	<!-- Custom styling -->
+	<link rel="stylesheet" type="text/css" href="style/style.css" />
+	<!-- Javascript -->
+	<script type = "text/javascript"
+			src="https://www.gstatic.com/charts/loader.js"></script>
+	<!-- External JS libraries -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/d3.min.js"></script>
+	<script src="js/d3-tip.js"></script>
+
+	<!-- Custom JS -->
+	<script src="js/main.js"></script>		
+			
+	<script type = "text/javascript">
+			//load the google charts
+			google.charts.load('current',{'packages':['corechart']});
+			
+			//load the Callback function that runs when page loads
+			google.charts.setOnLoadCallback(drawAllSheets);
+			
+			function drawAllSheets(){
+				drawSheetName('Population', 
+							'Select A,B,C,D,E,F,G,H',
+							populationResponseHandler);
+			
+				drawSheetName('Population', 
+							'Select J,K,L,M,N,O,P,Q',
+							world20popResponseHandler);			
+
+				drawSheetName('Population', 
+							'Select T,U,V,W,X,Y,Z,AA',
+							USAG20popResponseHandler);	
+
+				drawSheetName('GDP', 
+							'Select A,H',
+							gdpResponseHandler);	
+							
+				drawSheetName('Gross_National_Expenditure', 
+							'Select A,H',
+							expResponseHandler);	
+			}  //drawAllSheets
+//************************************************************************************************
+			function drawSheetName(sheetName, query, responseHandler){
+				var queryString = encodeURIComponent(query);
+				var query = new google.visualization.Query(
+					'https://docs.google.com/spreadsheets/d/1FPbVCF0wq1LSBkc8wfNMxBmwm-5X352VsMOY7KLEkGw/gviz/tq?sheet=' +sheetName + '&headers = 1&tq=' +queryString);
+				query.send(responseHandler);				
+				
+			}  //drawSheetName
+			
+			function populationResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							//height: 400,
+							width: 600,
+							vAxis: {title: 'Population', showTextEvery:1},
+							hAxis: {title: 'Country',showTextEvery:1, direction:-1, slantedText:true, slantedTextAngle:90 },
+							textStyle: {fontSize: 6},
+							backgroundColor: '#f8f8f8'
+							//bars: 'horizontal'
+				
+				};
+			var chart = new google.visualization.PieChart(
+							document.getElementById('population_div')
+							)
+				chart.draw(data,options);
+			
+			}  //populationResponseHandler
+		
+			
+			function world20popResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							width: 600,
+							backgroundColor: '#f8f8f8'
+				
+				};
+				var chart = new google.visualization.PieChart(
+							document.getElementById('world20population_div')
+							)
+				chart.draw(data,options);
+				
+			}  //world20popResponseHandler
+			
+			function USAG20popResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							//height: 400,
+							width: 600,
+							backgroundColor: '#f8f8f8'
+				
+				};
+				var chart = new google.visualization.PieChart(
+							document.getElementById('usa20population_div')
+							)
+				chart.draw(data,options);
+				
+			}  //USAG20popResponseHandler
+			
+			function gdpResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							width: 600,
+							backgroundColor: '#f8f8f8'
+				};
+		
+				var chart = new google.visualization.PieChart(
+							document.getElementById('gdp_div')
+							)
+				chart.draw(data,options);
+				
+			}  //gdpResponseHandler	
+						
+			function expResponseHandler(response){
+				var data = response.getDataTable();
+				data.sort({column:1, desc:true});
+				var options = {
+							width: 600,
+							backgroundColor: '#f8f8f8'
+				};
+		
+				var chart = new google.visualization.PieChart(
+							document.getElementById('exp_div')
+							)
+				chart.draw(data,options);
+				
+			}  //expResponseHandler	
+	</script>
+	
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<h1>Wisconsin Land Use | 2004-2017</h1>
+				</div><!-- logo_text -->
+				
+			</div><!-- logo -->
+			<div id="menubar">
+				<ul id="menu">
+					<li class="selected"><a href="index.html">Home</a></li>
+					<li><a href="area.html">Forest Area</a></li>
+					<li><a href="population.html">Population</a></li>
+					<li><a href="netvolume.html">Net Volume</a></li>
+					<li><a href="biomass.html">Aboveground Biomass</a></li>
+					<li><a href="carbon.html">Carbon</a></li>
+					<li><a href="bolevolume.html">Bole Volume</a></li>					
+				</ul>
+			</div><!-- menubar -->
+		</div><!-- header -->
+		<div id="site_content">
+			<div class="sidebar">
+			<!-- insert sidebar items here -->
+			<h3>Overview</h3>
+				<ul>
+					<li><a href="#g20">The G20 countries</a></li>
+					<li><a href="#popworld">Population of World to G20 Countries</a></li>
+					<li><a href="#popg20">Population of G20 Countries<i>excluding USA and EU</i></a></li>
+					<li><a href="#popusa">Population of USA to G20 Countries</a></li>
+					<li><a href="#gdpg20">G20 GDP</a></li>
+					<li><a href="#exp">Gross National Expenditure</a></li>
+					</ul>
+			
+				
+			
+			</div><!-- sidebar -->
+			<div id="content">
+				<!-- insert page content here -->
+				<p>The U.S. Forest Service, Forest Inventory and Analysis (FIA)
+					program of the Northern Research Station conducts inventory on an annual basis, completing 20% of an area in a year's timeframe, completing inventory every five years. 
+					The annual inventory started in 1999.</p> 
+				<h1>Overview</h1>
+				<p>Acres of forest land (table X)</p>
+				<p>Since 2004, estimate of forest land increased by X million acres (fig x)</p>
+
+				<p>Accompaning this increase:</p>
+					<ul>Total number of trees, volume, and biomass has increased (table x)</ul>
+					<ul>Average annual net growth, mortality, and removals</ul>
+					<ul>X % increase in average annual mortality of trees on forest land (table x)</ul>
+					<ul>X % increase in type of trees  mortality is the predominant factor (if have time add this data from Sqlite database)</ul>
+	
+				<h2>Table 1.</h2>Michigan forest statistics, 2015 and 2010. Volumes are for trees 5 inches and larger in diameter. Number
+				of trees and biomass are for trees 1 inch and larger in diameter. 
+<h2>2017 Estimate	2014 Estimate 2009 Estimate  2004 Estimate Change since 2014 (percent) Change since 2004 (percent)</h2>
+<h2>Forest Land</h2>
+Area (thousand acres) 
+Number of live trees (million trees)
+Aboveground biomass of live trees (thousand oven-dry tons) 
+Net volume of live trees (million ft3)
+Annual net growth live trees (thousand ft3/yr)
+Annual mortality of live trees (thousand ft3/yr)
+Annual harvest removals of live trees (thousand ft3/yr)
+Annual other removals of live trees (thousand ft3
+/yr)
+<h2>Timberland</h2>
+Area (thousand acres) 
+Number of live trees (million trees)
+Aboveground biomass of live trees (thousand oven-dry tons)
+Net volume of live trees (million ft3)
+Net volume of growing stock trees (million ft3)
+Annual net growth of growing stock trees (thousand ft3/yr)
+Annual mortality of growing stock trees (thousand ft3/yr)
+Annual harvest removals of growing stock trees (thousand ft3/yr)
+Annual other removals of growing stock trees (thousand ft3/yr)
+				
+			</div><!-- content -->
+		</div><!-- site_Content -->
+		<div id="content_footer">
+			<div id="footer">
+				 <script>var d=new Date(); document.write(d.getFullYear());</script>
+				| Jennifer Crosby | DATS 6401-010 | Visualization of Complex Data |
+				<a href ="https://apps.fs.usda.gov/fia/datamart/datamart.html">Dataset obtained from FIA DataMart</a>
+			</div><!-- footer -->
+		</div><!-- content_footer -->
+	</div><!-- main -->
+</body>
+</html>
