@@ -139,7 +139,7 @@ ul#menu li {
 /*manages width of menu*/
 ul#menu li a {
 	letter-spacing: 0em;
-	font: normal 105% arial, sans-serif;
+	font: normal 125% arial, sans-serif;
 	text-transform: uppercase;
 	display: block;
 	float: left;
