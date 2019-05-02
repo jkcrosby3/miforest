@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Michigan Land Use (home)</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+	<!-- jQuery UI CSS -->
+	<link rel="stylesheet" href="style/jquery-ui.min.css">
+	<link rel="stylesheet" href="style/jquery-ui.structure.min.css">
+	<link rel="stylesheet" href="style/jquery-ui.theme.min.css">
+    <!-- D3 Tooltip CSS -->
+	<link rel="stylesheet" href="style/d3-tip.css">
+	<!-- Custom styling -->
+	<link rel="stylesheet" type="text/css" href="style/style.css" />
+	<!-- Javascript -->
+	<script type = "text/javascript"
+			src="https://www.gstatic.com/charts/loader.js"></script>
+	<!-- External JS libraries -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="js/d3-fetch.min.js"></script>
+	<script src="js/d3-tip.js"></script>
+	<div id='d3Id'></div>
+
+	<!-- Custom JS -->
+	<!--<script src="js/main.js"></script>		-->
+
+	<script type = "text/javascript">
+			//load the google charts
+			
+			google.charts.load('current', {'packages':['table']});
+			google.charts.load('current', {'packages':['controls']});
+			google.charts.load('current', {'packages':['line']});
+			
+			google.charts.load('current',{'packages':['corechart']});
+			
+			//load the Callback function that runs when page loads
+			//google.charts.setOnLoadCallback(drawTable);
+			google.charts.setOnLoadCallback(drawAllSheets);
+			
+			function drawAllSheets(){
+
+				
+				drawSheetName('sr009_numlivetreebysizefland', 
+							'Select A,B,C,D,E,F,G,H,I,J,K,L,M',
+							forestlandnumlivetreebysizeResponseHandler);	
+
+				drawSheetName('sr008-acrestlandbysize', 
+							'Select A,B,C,D,E',
+							timberlandacresbysizeResponseHandler);							
+				
+			}  //drawAllSheets
+//************************************************************************************************
+			function drawSheetName(sheetName, query, responseHandler){
+				var queryString = encodeURIComponent(query);
+				var query = new google.visualization.Query(
+					'https://docs.google.com/spreadsheets/d/1OtLIqyW9qkbcbqznwuW2F2iA5UWC6bocgn9djBm446w/gviz/tq?sheet=' +sheetName + '&headers = 1&tq=' +queryString);
+				
+				query.send(responseHandler);				
+							
+				
+			}  //drawSheetName
+			
+			/**************************************************************/
+			function forestlandnumlivetreebysizeResponseHandler(response){
+				if (response.isError()) {
+					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+					return;
+				}
+				//var data = response.getDataTable();
+				var data = new google.visualization.DataTable();
+				var options = {
+				  title : 'Acres of Forest Land by Stand-Size Class (2004-2017)',
+				  vAxis: {title: 'Number Live Trees'},
+				  hAxis: {title: 'Year'},
+				  seriesType: 'bars',
+				  series: {5: {type: 'line'}}
+				};
+
+				var chart = new google.visualization.ComboChart(document.getElementById('flandlivetreebysize_div'));
+				chart.draw(data, options);
+				}
+				//forestlandnumlivetreebysizeResponseHandler		
+
+			/**************************************************************/
+
+			function timberlandacresbysizeResponseHandler(response){
+				if (response.isError()) {
+					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+					return;
+				}
+				var data = response.getDataTable();
+				
+				var options = {
+						/*chart: {
+							title: 'Acres of Timberland by Stand Size'
+						},*/
+						legend: {
+						  position: 'right'
+						},
+						axes: {
+						  x: {
+							0: {side: 'bottom'}
+						  }
+						},
+						textStyle: {fontSize: 6}
+				};
+	
+			var chart = new google.charts.Line(document.getElementById('timberlandacressize_div')
+									)
+				chart.draw(data, google.charts.Line.convertOptions(options));
+				}
+				//timberlandacresbysizeResponseHandler
+	</script>			
+
+	
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<h1>Michigan Land Use | 2004-2017</h1>
+				</div><!-- logo_text -->
+				
+			</div><!-- logo -->
+			<div id="menubar">
+				<ul id="menu">
+					<li><a href="index.html">Home</a></li>
+					<li ><a href="area.html">Forest Area</a></li>
+					<li class="selected"><a href="volumebiomasstrends.html">Volume, Biomass and Trends</a></li>
+					
+				</ul>
+			</div><!-- menubar -->
+		</div><!-- header -->
+		<div id="site_content">
+			
+			
+			<div id="content">
+				<!-- insert page content here -->
+ 
+				<h1>
+					Volume, Biomass, and Trends
+				</h1>
+				<h4>
+					As volume, biomass, and number of large-diameter trees have increased, so has the area of forest land and large-diameter stands in Michigan.  
+					volume increased
+					biomass increase
+					% increase each
+					
+				</h4>
+				chart live trees on forestland showing volume and oven-dry tons of abovground biomass
+
+				<h4>
+					Net growth trend num trees 
+					net growth live trees on forest land %
+					Net volume
+					Aboveground biomass
+					net growth
+					Mortality
+					Harvest Removals
+					reversions growth from nonforest to forestland trend %
+					Mortality has affected net growth how
+					Removals trend
+					
+					
+				</h4>
+				chart live trees on forestland showing volume and oven-dry tons of abovground biomass
+				
+				
+				<img style="padding: 0 15px;float:right;" src="../project2/images/mi_hogsback_mtn.jpg" alt="Hogsback Mountain" style="width:250px; height:230px;">
+				<h2 >Michigan Forest Land and Timberland by Year</h2>
+
+					
+				<h1>Number of Live Trees on Forest Land by Stand-Size Class (2004-2017)</h1>				
+						<div id="flandlivetreebysize_div"
+						style="width:800px;" ></div>	
+				<h4>
+				
+				<h1>Acres of Timberland by Stand-Size Class (2004-2017)</h1>
+					<div id="timberlandacressize_div"
+						style="width:800px;" ></div>								
+				<p></p>
+				
+				
+				
+				There are x million acres of timberland of x acres (plantations)
+				x percent artificially regenerated.
+				x percent naturally regenerating acreage
+				Age and type of tree stand is important because it may indicate which stands are more vulnerable to pests.  This information was not available in this dataset.
+				</h4>
+				<h4>
+				What does this mean?
+				Michigan's forestland base has remained relatively stable
+				losses in forest due to conversions or mortality but stable.
+				Current forest stand-size and age-class distributions indicate maturing forest, but still have young stands with x percent less than 40 years old.  Trend in maturing forests look to continue.
+				
+				
+				</h4>
+				My data lacks forest type.
+				Number of Trees
+				Number of trees best combined with diameter-class distribution.  Young forests may have more trees per acre, but mature forests have more biomass.  
+				Forest type would be good to look at to determine species density.
+				# live trees on forestland, and timberland
+				# live trees that are  saplings (1 to less than 5 inches d.b.h.), 18 percent are poletimber-size trees (5
+to less than 9 inches for softwoods and 5 to less than 11 inches for hardwoods), and 7
+percent are sawtimber-size trees
+			--it would be good to have species to compare how many in what class size	
+			CHART
+			# trees per diameter class on what land type and/or owner
+			
+			# trees on timberland increased from what to what, x percent.
+			sawtimber-size trees increased x percentsaplings increased x percentpoletimber-size trees decreased by x percent   (on national and state forests)
+			
+			What this means?
+			with more info we could determine if shade-tolerant species increase or intolerant declining.  We could also determine which species has a greater mortality and if any non-native species seem to be taking over.
+			
+			
+			Volume
+			Volumes and changes in volume over time can determine resource trends.  
+			Compare net growth, removals, and mortality to current volumes.
+			line chart volume to year per wood type, so forestland to timberland
+			
+			What this meansincreases in forest land area adn number of trees leads to increases in volume.  Volume increasing, but has slowed? due to low growth and pests
+			volumes vs growth minus mortality and removals?
+			ANNUAL NET GROWTH
+			ratio of net growth to current live volume useful neg number indicates mortality is exceeding growth (pg 49)
+			line chart over time for net growth to volume by forest type, timberland and forest land
+			what this means
+			forests maturing, so growth rate slows as well
+			net growth rose
+			mortality rose
+			increase volume decrease net growth
+			
+			MORTALITY
+			line chart mortality over time by forest type or forest owner
+			ANNUAL REMOVALS
+			Removals is directly tied to human activity.  
+			line chart removals over time by forest type or forest owner
+			FOREST CARBON
+			Tree biomass is about 50 percent carbon, based in dry weight.  This is important because forests keep caron from the atmospheric greenhouse gas carbon dioxide, which is linked to global change.  
+			stacked bar chart carbon per stand-age class for forest type
+			WILDLIFE
+			area of stands by year for stand size bar stacked bar chart
+			area timberland by stand-size class for stand-age class grouped bar chart
+			
+			FUTURE FORESTS of MICHIGAN
+			anticipated changes
+			
+			***************
+			<h1>
+					Volume, Biomass, and Trends
+				</h1>
+				<h4>
+					As volume, biomass, and number of large-diameter trees have increased, so has the area of forest land and large-diameter stands in Michigan.  
+					volume increased
+					biomass increase
+					% increase each
+					
+				</h4>
+				chart live trees on forestland showing volume and oven-dry tons of abovground biomass
+
+				<h4>
+					Net growth trend num trees 
+					net growth live trees on forest land %
+					Net volume
+					Aboveground biomass
+					net growth
+					Mortality
+					Harvest Removals
+					reversions growth from nonforest to forestland trend %
+					Mortality has affected net growth how
+					Removals trend
+					
+					
+				</h4>
+				chart live trees on forestland showing volume and oven-dry tons of abovground biomass
+
+			</div><!-- content -->
+
+		</div><!-- site_Content -->
+		<div id="content_footer">
+			<div id="footer">
+				 <script>var d=new Date(); document.write(d.getFullYear());</script>
+				| Jennifer Crosby | DATS 6401-010 | Visualization of Complex Data |
+				<a href ="https://apps.fs.usda.gov/fia/datamart/datamart.html">Dataset obtained from FIA DataMart</a>
+			</div><!-- footer -->
+		</div><!-- content_footer -->
+	</div><!-- main -->
+	<script src="js/main.js"></script>
+</body>
+</html>
