@@ -74,19 +74,19 @@ ul li {
 
 #main {
 	width: 910px;
-	background: url(/images/content.png) repeat-y;
+	background: url(../images/content.png) repeat-y;
 }
 
 #header {
 	width: 890px;
-	background: url(/images/back.png)
+	background: url(../images/back.png)
 }
 
 #logo {
 	width: 890px;
 	position: relative;
 	height: 190px;
-	background: url(/images/logo-mi.png) no-repeat;
+	background: url(../images/logo-mi.png) no-repeat;
 }
 
 
