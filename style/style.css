@@ -74,19 +74,19 @@ ul li {
 
 #main {
 	width: 910px;
-	background: url(../miforest.github.io/images/content.png) repeat-y;
+	background: url(/images/content.png) repeat-y;
 }
 
 #header {
 	width: 890px;
-	background: url(../miforest.github.io/images/back.png)
+	background: url(/images/back.png)
 }
 
 #logo {
 	width: 890px;
 	position: relative;
 	height: 190px;
-	background: url(../miforest.github.io/images/logo-mi.png) no-repeat;
+	background: url(/images/logo-mi.png) no-repeat;
 }
 
 
@@ -213,7 +213,7 @@ ul#menu li a:hover {
 
 #content ul li {
 	list-style-type: none;
-	background: url(../miforest.github.io/images/bullet.png) no-repeat;
+	background: url(/images/bullet.png) no-repeat;
 	margin: 0 0 6px 0;
 	padding: 0 0 4px 25px;
 	line-height: 1.5em;
