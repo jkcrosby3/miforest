@@ -8,14 +8,14 @@ html {
 }
 
 body {
-	font: normal .78em arial, sans-serif;
+	font: normal 1em arial, sans-serif;
 	background: #444;
 	color: #555;
 }
 
 p {
-	padding: 0 0 16px 0;
-	line-height: 1.7em;
+	padding: 0 0 10px 0;
+	line-height: 1.0 em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,7 +86,7 @@ ul li {
 	width: 890px;
 	position: relative;
 	height: 190px;
-	background: url(../images/logo.png) no-repeat;
+	background: url(../images/logo-mi.png) no-repeat;
 }
 
 
@@ -108,7 +108,7 @@ ul li {
 
 
 #logo_text h2 {
-	font-size: 150%;
+	font-size: 145%;
 	padding: 0;
 	color: #5d5d5d;
 }
@@ -139,7 +139,7 @@ ul#menu li {
 /*manages width of menu*/
 ul#menu li a {
 	letter-spacing: 0em;
-	font: normal 125% arial, sans-serif;
+	font: normal 105% arial, sans-serif;
 	text-transform: uppercase;
 	display: block;
 	float: left;
@@ -171,7 +171,7 @@ ul#menu li a:hover {
 	overflow: hidden;
 	background: #f8f8f8;
 }
-
+/*
 .sidebar {
 	float: right;
 	width: 198px;
@@ -199,10 +199,10 @@ ul#menu li a:hover {
 	color: #444;
 	text-decoration: none;
 }
-
+*/
 #content {
 	text-align: left;
-	width: 600px;
+	width: 800px;
 	float: left;
 	padding: 20px 0 15px 30px;
 }
